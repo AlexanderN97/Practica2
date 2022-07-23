@@ -15,7 +15,7 @@ Al ejecutarse el programa se ejecutaran las siguientes funciones
     devices=orgDev(id) -> Obtiene los dispositivos de DeLab
     devicesStatuses=orgSta(id) -> Obtiene los status de los dispositivos de DeLab
     devicesList=productType(devices) -> Simplificamos la lista para que nos de los devices que son tipo appliance y wireless
-    reorderList(devicesList,devicesStatuses) #Se reordena la lista de los dispositivos para que se muestre en el orden pedido y se eliminan los datos innecesarios
+    reorderList(devicesList,devicesStatuses) -> Se reordena la lista de los dispositivos para que se muestre en el orden pedido y se eliminan los datos innecesarios
     jsontocsv(devicesList) -> Generamos un archivo csv con la información necesaria de los dispositivos
 
 
