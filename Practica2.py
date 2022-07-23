@@ -20,11 +20,13 @@ headers = {
     "X-Cisco-Meraki-API-Key": "6bec40cf957de430a6f1f2baa056b99a4fac9ea0"
 }
 
-#Functions
+#Functions 
 
 def orgList():                                  # Obtiene la lista de la API_KEY
     response = requests.request('GET', urlorg, headers=headers, data = payload)
     orgList= json.loads(response.text)
+    if response.raise_for_status()!=None:
+        print("Se jodió la vaina jefecito")
     return orgList
 
 def  orgId(orgList):                                    #Obtiene el Id asociado al nombre de organización que se le pasa
@@ -39,12 +41,16 @@ def orgDev(Id):                                             #Obtiene los devices
     urldev1="https://api.meraki.com/api/v1/organizations/organizationId/devices".replace('organizationId', Id)
     response= requests.request('GET', urldev1, headers=headers, data = payload)
     orgDev= json.loads(response.text)
+    if response.raise_for_status()!=None:
+        print("Se jodió la vaina jefecito")
     return orgDev
 
 def orgSta(Id):                                             #Obtiene los status de los devices de DeLab
     urlsta1="https://api.meraki.com/api/v0/organizations/organizationId/deviceStatuses".replace('organizationId', Id)
     response= requests.request('GET', urlsta1, headers=headers, data = payload)
     orgStatus=response.json()
+    if response.raise_for_status()!=None:
+        print("Se jodió la vaina jefecito")
     return orgStatus
 
 
@@ -111,9 +117,10 @@ def jsontocsv(x):                                           #Pasamos de json a c
                 inventory_writer.writerow(x[i].values())
 
 
+# Llamada a las funciones
 
-list=orgList()
-id=orgId(list)
+list=orgList()  
+id=orgId(list)  
 devices=orgDev(id)
 devicesStatuses=orgSta(id)
 devicesList=productType(devices)
