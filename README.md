@@ -17,4 +17,5 @@ Al ejecutarse el programa se ejecutaran las siguientes funciones
     - reorderList(devicesList,devicesStatuses) #Se reordena la lista de los dispositivos para que se muestre en el orden pedido y se eliminan los datos innecesarios
     - jsontocsv(devicesList) -> Generamos un archivo csv con la información necesaria de los dispositivos
 
+
 En dado caso de que ocurra un error al obtener la información de la API saldrá un mensaje en la consola
