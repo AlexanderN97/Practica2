@@ -36,7 +36,7 @@ def  orgId(orgList):                                        #Obtiene el Id asoci
         if(orgList[i]["name"]=="DeLab"):    	    
             DeLab.append(orgList[i])
         DeLab.append(0)
-    return DeLab[0]['id']
+    return DeLab[0]["id"]
 
 def orgDev(Id):                                             #Obtiene los devices de DeLab
     urldev1="https://api.meraki.com/api/v1/organizations/organizationId/devices".replace('organizationId', Id)
@@ -123,8 +123,8 @@ def cincomin():                                             # Espera 5 minutos
 # Llamada a las funciones
 
 list=orgList()  
-id=orgId(list)
-#id='681155'
+#id=orgId(list)
+id='681155'
 
 while(True):
 
