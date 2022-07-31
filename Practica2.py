@@ -6,6 +6,7 @@ import json
 from urllib import response
 import requests
 import csv
+import time
 
 #Urls
 urlorg = "https://api.meraki.com/api/v1/organizations"
@@ -22,20 +23,20 @@ headers = {
 
 #Functions 
 
-def orgList():                                  # Obtiene la lista de la API_KEY
+def orgList():                                              # Obtiene la lista de la API_KEY
     response = requests.request('GET', urlorg, headers=headers, data = payload)
     orgList= json.loads(response.text)
     if response.raise_for_status()!=None:
         print("Se jodió la vaina jefecit@")
     return orgList
 
-def  orgId(orgList):                                    #Obtiene el Id asociado al nombre de organización que se le pasa
+def  orgId(orgList):                                        #Obtiene el Id asociado al nombre de organización que se le pasa
     DeLab=[]
     for i in range(len(orgList)):
         if(orgList[i]["name"]=="DeLab"):    	    
             DeLab.append(orgList[i])
         DeLab.append(0)
-    return DeLab[0]["id"]
+    return DeLab[0]['id']
 
 def orgDev(Id):                                             #Obtiene los devices de DeLab
     urldev1="https://api.meraki.com/api/v1/organizations/organizationId/devices".replace('organizationId', Id)
@@ -97,7 +98,7 @@ def reorderList(x,y):                                       # Arreglamos las lis
                 if x[i]["serial"] == y[j]["serial"]:
                     x[i]["status"] = y[j]["status"]
 
-def jsontocsv(x):                                           #Pasamos de json a csv
+def jsontocsv(x):                                           # Pasamos de json a csv
     blank=[]
     header=x[0].keys()
     with open('DevicesList.csv','w') as inventory:
@@ -116,13 +117,20 @@ def jsontocsv(x):                                           #Pasamos de json a c
             if(x[0]['productType']!=x[i]['productType']):
                 inventory_writer.writerow(x[i].values())
 
+def cincomin():                                             # Espera 5 minutos
+    time.sleep(300)
 
 # Llamada a las funciones
 
 list=orgList()  
-id=orgId(list)  
-devices=orgDev(id)
-devicesStatuses=orgSta(id)
-devicesList=productType(devices)
-reorderList(devicesList,devicesStatuses) #Se reordena devicesList
-jsontocsv(devicesList)
+id=orgId(list)
+#id='681155'
+
+while(True):
+
+    devices=orgDev(id)
+    devicesStatuses=orgSta(id)
+    devicesList=productType(devices)
+    reorderList(devicesList,devicesStatuses) #Se reordena devicesList
+    jsontocsv(devicesList)
+    cincomin()
