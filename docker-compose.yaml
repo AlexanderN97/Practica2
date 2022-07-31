@@ -1,0 +1,10 @@
+services:
+  contenedor:
+    image: practica2-py
+    volumes:
+      - "volumen:/usr/src/app practica2-py"
+version: '3.10.5'  
+volumes:
+  volumen: 
+    external: true
+
